@@ -5,7 +5,7 @@
   "main": "dist/node/node/main.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/demurgos/via-type.git"
+    "url": "git://github.com/demurgos/via-core.git"
   },
   "scripts": {
     "test": "gulp test",
