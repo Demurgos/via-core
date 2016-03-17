@@ -1,4 +1,4 @@
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
 import { Dictionary } from "./utils";
 import { ViaSchema } from "./schema";
 export interface Proxy {
