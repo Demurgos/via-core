@@ -9,10 +9,10 @@ export interface TypeAsync<T, D> {
   test(val: any, options?: any): Promise<Error>;
   normalize(val: any, options?: any): Promise<T>;
   equals(val1: T, val2: T, options?: any): Promise<boolean>;
-  clone(val: T): Promise<T>;
-  diff(oldVal: T, newVal: T): Promise<D>;
-  patch(oldVal: T, diff: D): Promise<T>;
-  revert(newVal: T, diff: D): Promise<T>;
+  clone(val: T, options?: any): Promise<T>;
+  diff(oldVal: T, newVal: T, options?: any): Promise<D>;
+  patch(oldVal: T, diff: D, options?: any): Promise<T>;
+  revert(newVal: T, diff: D, options?: any): Promise<T>;
 }
 
 export interface TypeSync<T, D> {
