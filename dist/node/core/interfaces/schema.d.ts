@@ -1,8 +1,3 @@
-import { CollectionType } from "./type";
-import { Dictionary } from "./utils";
-export interface SchemaDiff {
-    "create": Dictionary<any>;
-    "update": Dictionary<any>;
-    "delete": Dictionary<any>;
-}
-export declare type ViaSchema = CollectionType<Object, SchemaDiff>;
+import { CollectionType, DocumentDiff } from "./type";
+import { Document } from "./utils";
+export declare type ViaSchema = CollectionType<Document, DocumentDiff>;

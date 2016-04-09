@@ -1,4 +1,5 @@
 import * as Promise from "bluebird";
+import { Dictionary, Document } from "./utils";
 export interface TypeAsync<T, D> {
     isSync: boolean;
     name: string;
@@ -53,4 +54,9 @@ export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
 }
 export interface CollectionType<T, D> extends CollectionTypeAsync<T, D>, Type<T, D> {
     reflectSync?(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
+}
+export interface DocumentDiff {
+    set: Document;
+    update: Dictionary<any>;
+    unset: Document;
 }
