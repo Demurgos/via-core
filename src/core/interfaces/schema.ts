@@ -2,9 +2,9 @@ import {CollectionType} from "./type";
 import {Dictionary} from "./utils";
 
 export interface SchemaDiff {
-  "create": Dictionary<any>;
-  "update": Dictionary<any>;
-  "delete": Dictionary<any>;
+  "set": Dictionary<any>; // val
+  "update": Dictionary<any>; // diff
+  "unset": Dictionary<any>; // val
 }
 
 export type ViaSchema = CollectionType<Object, SchemaDiff>;
