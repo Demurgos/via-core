@@ -1,14 +1,15 @@
 import * as Promise from "bluebird";
 import { Dictionary } from "./utils";
 import { ViaSchema } from "./schema";
+import { UpdateQuery } from "./type";
 export interface Proxy {
     format: string;
     build(schema: ViaSchema): Promise<any>;
     create(data: Object): Promise<Object>;
     read(filter: Object, options?: ReadOptions): Promise<Cursor>;
     readById(id: string, options?: ReadOptions): Promise<Object>;
-    update(filter: Document, update: Object, options?: UpdateOptions): Promise<UpdateResult>;
-    updateById(id: string, rev: string, update: Object, options?: UpdateOneOptions): Promise<UpdateResult>;
+    update(filter: Document, update: UpdateQuery, options?: UpdateOptions): Promise<UpdateResult>;
+    updateById(id: string, rev: string, update: UpdateQuery, options?: UpdateOneOptions): Promise<UpdateResult>;
     delete(): Promise<any>;
 }
 export interface Cursor {

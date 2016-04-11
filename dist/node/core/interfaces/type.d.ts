@@ -48,6 +48,7 @@ export interface StaticType<T, D> {
 }
 export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
     reflect(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Promise<any>;
+    diffToUpdate(newVal: T, diff: D, format: string): Promise<UpdateQuery>;
 }
 export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
     reflectSync(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
@@ -59,4 +60,8 @@ export interface DocumentDiff {
     set: Document;
     update: Dictionary<any>;
     unset: Document;
+}
+export interface UpdateQuery {
+    $set?: any;
+    $unset?: any;
 }
