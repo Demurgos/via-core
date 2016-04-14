@@ -1,19 +1,19 @@
-import * as Promise from "bluebird";
+import * as Bluebird from "bluebird";
 import {Dictionary, Document} from "./utils";
 
 export interface TypeAsync<T, D> {
   isSync: boolean;
   name: string;
 
-  read(format: string, val: any, options?: any): Promise<T>;
-  write(format: string, val: T, options?: any): Promise<any>;
-  test(val: any, options?: any): Promise<Error>;
-  normalize(val: any, options?: any): Promise<T>;
-  equals(val1: T, val2: T, options?: any): Promise<boolean>;
-  clone(val: T, options?: any): Promise<T>;
-  diff(oldVal: T, newVal: T, options?: any): Promise<D>;
-  patch(oldVal: T, diff: D, options?: any): Promise<T>;
-  revert(newVal: T, diff: D, options?: any): Promise<T>;
+  read(format: string, val: any, options?: any): Bluebird.Thenable<T>;
+  write(format: string, val: T, options?: any): Bluebird.Thenable<any>;
+  test(val: any, options?: any): Bluebird.Thenable<Error>;
+  normalize(val: any, options?: any): Bluebird.Thenable<T>;
+  equals(val1: T, val2: T, options?: any): Bluebird.Thenable<boolean>;
+  clone(val: T, options?: any): Bluebird.Thenable<T>;
+  diff(oldVal: T, newVal: T, options?: any): Bluebird.Thenable<D>;
+  patch(oldVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
+  revert(newVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
 }
 
 export interface TypeSync<T, D> {
@@ -56,8 +56,8 @@ export interface StaticType<T, D> {
 }
 
 export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
-  reflect(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Promise<any>;
-  diffToUpdate (newVal: T, diff: D, format: string): Promise<UpdateQuery>
+  reflect(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Bluebird.Thenable<any>;
+  diffToUpdate (newVal: T, diff: D, format: string): Bluebird.Thenable<UpdateQuery>
 }
 
 export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
