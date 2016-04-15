@@ -2,14 +2,13 @@
   "name": "via-core",
   "version": "0.2.1",
   "description": "Document oriented models",
-  "main": "dist/node/node/main.js",
+  "main": "dist/node/main.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/demurgos/via-core.git"
   },
   "scripts": {
-    "test": "gulp test",
-    "postinstall": "gulp install.noNpm"
+    "test": "gulp test"
   },
   "keywords": [
     "odm"
@@ -19,8 +18,8 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "gulp": "^3.9.0",
-    "typescript": "^1.8.0-dev.20160125",
-    "via-build-tools": "^0.7.6"
+    "typescript": "^1.8.10",
+    "via-build-tools": "^0.8.2"
   },
   "jspm": {
     "configFile": "systemjs.config.js",
