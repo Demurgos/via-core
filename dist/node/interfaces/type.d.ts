@@ -4,9 +4,9 @@ export interface TypeAsync<T, D> {
     isSync: boolean;
     name: string;
     read(format: string, val: any, options?: any): Bluebird.Thenable<T>;
+    readTrusted(format: string, val: any, options?: any): Bluebird.Thenable<T>;
     write(format: string, val: T, options?: any): Bluebird.Thenable<any>;
     test(val: any, options?: any): Bluebird.Thenable<Error>;
-    normalize(val: any, options?: any): Bluebird.Thenable<T>;
     equals(val1: T, val2: T, options?: any): Bluebird.Thenable<boolean>;
     clone(val: T, options?: any): Bluebird.Thenable<T>;
     diff(oldVal: T, newVal: T, options?: any): Bluebird.Thenable<D>;
@@ -17,9 +17,9 @@ export interface TypeSync<T, D> {
     isSync: boolean;
     name: string;
     readSync(format: string, val: any, options?: any): T;
+    readTrustedSync(format: string, val: any, options?: any): T;
     writeSync(format: string, val: T, options?: any): any;
     testSync(val: any, options?: any): Error;
-    normalizeSync(val: any, options?: any): T;
     equalsSync(val1: T, val2: T, options?: any): boolean;
     cloneSync(val: T, options?: any): T;
     diffSync(oldVal: T, newVal: T, options?: any): D;
@@ -29,9 +29,9 @@ export interface TypeSync<T, D> {
 export interface Type<T, D> extends TypeAsync<T, D> {
     isSync: boolean;
     readSync?(format: string, val: any, options?: any): T;
+    readTrustedSync?(format: string, val: any, options?: any): T;
     writeSync?(format: string, val: T, options?: any): any;
     testSync?(val: any, options?: any): Error;
-    normalizeSync?(val: any, options?: any): T;
     equalsSync?(val1: T, val2: T, options?: any): boolean;
     cloneSync?(val: T, options?: any): T;
     diffSync?(oldVal: T, newVal: T, options?: any): D;
