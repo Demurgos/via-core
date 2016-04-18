@@ -63,7 +63,7 @@ export interface Model {
     commit(options?: CommitOptions): Bluebird.Thenable<Model>;
     get(paths: DotPath[]): Bluebird.Thenable<any>;
     getOne(path: DotPath): Bluebird.Thenable<any>;
-    set(query: QueryDocument, opt?: any): Bluebird.Thenable<Model>;
+    set(values: Document, opt?: any): Bluebird.Thenable<Model>;
     setOne(path: DotPath, value: any, opt?: any): Bluebird.Thenable<Model>;
     test(query: QueryDocument, opt?: any): Bluebird.Thenable<Error>;
     testOne(field: DotPath, value: any, opt?: any): Bluebird.Thenable<Error>;

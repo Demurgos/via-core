@@ -56,16 +56,16 @@ export interface StaticType<T, D> {
 }
 
 export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
-  reflect(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Bluebird.Thenable<any>;
+  reflect(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Bluebird.Thenable<any>;
   diffToUpdate (newVal: T, diff: D, format: string): Bluebird.Thenable<UpdateQuery>
 }
 
 export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
-  reflectSync(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
+  reflectSync(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
 }
 
 export interface CollectionType<T, D> extends CollectionTypeAsync<T, D>, Type<T, D> {
-  reflectSync?(visitor: (value?: T, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
+  reflectSync?(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
 }
 
 export interface DocumentDiff {
