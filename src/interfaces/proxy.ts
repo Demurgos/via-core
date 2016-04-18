@@ -1,11 +1,11 @@
 import * as Bluebird from "bluebird";
 import {Dictionary} from "./utils";
-import {ViaSchema} from "./schema";
+import {ViaModelSchema} from "./schema";
 import {UpdateQuery} from "./type";
 
 export interface Proxy {
   format: string;
-  build (schema: ViaSchema): Bluebird.Thenable<any>;
+  build (schema: ViaModelSchema): Bluebird.Thenable<any>;
   create (data: Object): Bluebird.Thenable<Object>;
   read (filter: Object, options?: ReadOptions): Bluebird.Thenable<Cursor>;
   readById (id: string, options?: ReadOptions): Bluebird.Thenable<Object>;
