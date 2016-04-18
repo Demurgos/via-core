@@ -33,7 +33,23 @@ export interface CommitOptions {
   proxy?: Proxy;
 }
 
-export type LoadOptions = GetProxyOptions;
+export interface LoadOptions extends GetProxyOptions {}
+
+export interface CreateOptions extends GetProxyOptions {}
+
+export interface GetDefaultDataOptions {}
+
+export interface UpdateLocalOptions {}
+
+export interface UpdateOneLocalOptions {}
+
+export interface DecodeOptions {}
+
+export interface EncodeOptions {}
+
+export interface ImportDataOptions {}
+
+export interface ExportDataOptions {}
 
 export interface FindOptions {
   proxy?: Proxy;
@@ -61,19 +77,19 @@ export interface Model {
   getSchema (): Bluebird.Thenable<ViaModelSchema>;
 
   exists (options: ExistsOptions): Bluebird.Thenable<boolean>;
-  getDefaultData (options?: any): Bluebird.Thenable<any>;
-  create (options?: any): Bluebird.Thenable<Model>;
+  getDefaultData (options?: GetDefaultDataOptions): Bluebird.Thenable<any>;
+  create (options?: CreateOptions): Bluebird.Thenable<Model>;
 
-  updateLocal (data: Document): Model;
-  updateOneLocal (path: DotPath, value: any, opt?: any): Bluebird.Thenable<Model>;
+  updateLocal (data: Document, options?: UpdateLocalOptions): Model;
+  updateOneLocal (path: DotPath, value: any, options?: UpdateOneLocalOptions): Bluebird.Thenable<Model>;
   readLocal (fields: DotPath[]): ReadLocalResult;
   clearLocal (): Model;
 
   load (fields: DotPath[], getProxyOptions?: LoadOptions): Bluebird.Thenable<Model>;
-  decode (data: any, format: string | Bluebird.Thenable<string>): Bluebird.Thenable<Document>;
-  encode (data: Document, format: string | Bluebird.Thenable<string>): Bluebird.Thenable<any>;
-  importData (data: any, format: string): Bluebird.Thenable<Model>;
-  exportData (paths: DotPath[], format: string): Bluebird.Thenable<any>;
+  decode (data: any, format: string | Bluebird.Thenable<string>, options?: DecodeOptions): Bluebird.Thenable<Document>;
+  encode (data: Document, format: string | Bluebird.Thenable<string>, options?: EncodeOptions): Bluebird.Thenable<any>;
+  importData (data: any, format: string, options?: ImportDataOptions): Bluebird.Thenable<Model>;
+  exportData (paths: DotPath[], format: string, options?: ExportDataOptions): Bluebird.Thenable<any>;
 
   diff(): Bluebird.Thenable<DocumentDiff>;
   commit (options?: CommitOptions): Bluebird.Thenable<Model>;
