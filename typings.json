@@ -1,7 +1,8 @@
 {
   "name": "via-core",
   "dependencies": {
-    "bluebird": "registry:npm/bluebird#3.3.4+20160411163813"
+    "bluebird": "registry:npm/bluebird#3.3.4+20160411163813",
+    "lodash": "registry:npm/lodash#4.0.0+20160416211519"
   },
   "devDependencies": {},
   "ambientDependencies": {}

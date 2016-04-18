@@ -27,6 +27,7 @@
     "devDependencies": {}
   },
   "dependencies": {
-    "bluebird": "^3.2.1"
+    "bluebird": "^3.2.1",
+    "lodash": "^4.11.1"
   }
 }
