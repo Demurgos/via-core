@@ -1,21 +1,21 @@
-import * as Bluebird from "bluebird";
+import {Thenable} from "bluebird";
 import {Dictionary} from "./utils";
 import {ViaModelSchema} from "./schema";
 import {UpdateQuery} from "./type";
 
 export interface Proxy {
   format: string;
-  build (schema: ViaModelSchema): Bluebird.Thenable<any>;
-  create (data: Object): Bluebird.Thenable<Object>;
-  read (filter: Object, options?: ReadOptions): Bluebird.Thenable<Cursor>;
-  readById (id: string, options?: ReadOptions): Bluebird.Thenable<Object>;
-  update (filter: Document, update: UpdateQuery, options?: UpdateOptions): Bluebird.Thenable<UpdateResult>;
-  updateById (id: string, rev: string, update: UpdateQuery, options?: UpdateOneOptions): Bluebird.Thenable<UpdateResult>;
-  delete (): Bluebird.Thenable<any>;
+  build (schema: ViaModelSchema): Thenable<any>;
+  create (data: Object): Thenable<Object>;
+  read (filter: Object, options?: ReadOptions): Thenable<Cursor>;
+  readById (id: string, options?: ReadOptions): Thenable<Object>;
+  update (filter: Document, update: UpdateQuery, options?: UpdateOptions): Thenable<UpdateResult>;
+  updateById (id: string, rev: string, update: UpdateQuery, options?: UpdateOneOptions): Thenable<UpdateResult>;
+  delete (): Thenable<any>;
 }
 
 export interface Cursor {
-  toArray (): Bluebird.Thenable<any[]>;
+  toArray (): Thenable<any[]>;
 }
 
 export interface ReadOptions {
