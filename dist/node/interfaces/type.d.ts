@@ -1,17 +1,17 @@
-import * as Bluebird from "bluebird";
+import { Thenable } from "bluebird";
 import { Dictionary, Document } from "./utils";
 export interface TypeAsync<T, D> {
     isSync: boolean;
     name: string;
-    read(format: string, val: any, options?: any): Bluebird.Thenable<T>;
-    readTrusted(format: string, val: any, options?: any): Bluebird.Thenable<T>;
-    write(format: string, val: T, options?: any): Bluebird.Thenable<any>;
-    test(val: any, options?: any): Bluebird.Thenable<Error>;
-    equals(val1: T, val2: T, options?: any): Bluebird.Thenable<boolean>;
-    clone(val: T, options?: any): Bluebird.Thenable<T>;
-    diff(oldVal: T, newVal: T, options?: any): Bluebird.Thenable<D>;
-    patch(oldVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
-    revert(newVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
+    read(format: string, val: any, options?: any): Thenable<T>;
+    readTrusted(format: string, val: any, options?: any): Thenable<T>;
+    write(format: string, val: T, options?: any): Thenable<any>;
+    test(val: any, options?: any): Thenable<Error>;
+    equals(val1: T, val2: T, options?: any): Thenable<boolean>;
+    clone(val: T, options?: any): Thenable<T>;
+    diff(oldVal: T, newVal: T, options?: any): Thenable<D>;
+    patch(oldVal: T, diff: D, options?: any): Thenable<T>;
+    revert(newVal: T, diff: D, options?: any): Thenable<T>;
 }
 export interface TypeSync<T, D> {
     isSync: boolean;
@@ -47,8 +47,8 @@ export interface StaticType<T, D> {
     prototype?: Type<T, D>;
 }
 export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
-    reflect(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Bluebird.Thenable<any>;
-    diffToUpdate(newVal: T, diff: D, format: string): Bluebird.Thenable<UpdateQuery>;
+    reflect(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Thenable<any>;
+    diffToUpdate(newVal: T, diff: D, format: string): Thenable<UpdateQuery>;
 }
 export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
     reflectSync(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;

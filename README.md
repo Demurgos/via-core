@@ -126,58 +126,20 @@ interface UpdateResult {
 }
 ````
 
-### `Type<T, D>`
-
-| Parameter   | Description             |
-|-------------|-------------------------|
-| T           | Closest Typescript type |
-| D           | Diff type               |
-
-#### `read(format: string, val: any, options?: any): Bluebird.Thenable<T>`
-
-Attempt to read the value retrieved from the supplied format. Tries its best to return a valid value.
-
-#### `readTrusted(format: string, val: any, options?: any): Bluebird.Thenable<T>`
-
-Similar to read but allowed to emit extraneous tests when you have control over the encoded value.
-
-#### `write(format: string, val: T, options?: any): Bluebird.Thenable<any>`
-
-Prepare the value to be encoded in the supplied format.
-
-#### `test(val: any, options?: any): Bluebird.Thenable<Error>`
-
-Checks if the value matches the type.
-If the value is valid, test returns `null`, otherwise it returns an `Error` explaining why the value is not valid.
-
-#### `equals(val1: T, val2: T, options?: any): Bluebird.Thenable<boolean>`
-
-Returns a boolean indicating if both values are equal.
-
-#### `clone(val: T, options?: any): Bluebird.Thenable<T>`
-
-Returns a deep copy of val.
-
-#### `diff(oldVal: T, newVal: T, options?: any): Bluebird.Thenable<D>`
-
-Returns a `diff` representing the changes from `oldVal` to `newVal`.
-
-#### `patch(oldVal: T, diff: D, options?: any): Bluebird.Thenable<T>`
-
-Applyes the `diff` to `oldVal` in order to obtain `newVal`.
-
-#### `revert(newVal: T, diff: D, options?: any): Bluebird.Thenable<T>`
-
-The reverse of `patch`.
-
-### Schema
-
-````ts
-interface SchemaDiff {
-  create: Dictionary<data>,
-  update: Dictionary<diff>,
-  delete: Dictionary<data>
-}
-````
+### `Type<T, D, O>`
 
 
+    array
+        A JSON array. 
+    boolean
+        A JSON boolean. 
+    integer
+        A JSON number without a fraction or exponent part. 
+    number
+        Any JSON number. Number includes integer. 
+    null
+        The JSON null value. 
+    object
+        A JSON object. 
+    string
+        A JSON string. 
