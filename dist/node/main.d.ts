@@ -47,16 +47,12 @@ export declare namespace schema {
     type ViaModelSchema = _schema.ViaModelSchema;
 }
 export declare namespace type {
-    type TypeAsync<T, D> = _type.TypeAsync<T, D>;
-    type TypeSync<T, D> = _type.TypeSync<T, D>;
-    type Type<T, D> = _type.Type<T, D>;
-    type StaticTypeSync<T, D> = _type.StaticTypeSync<T, D>;
-    type StaticType<T, D> = _type.StaticType<T, D>;
-    type CollectionTypeAsync<T, D> = _type.CollectionTypeAsync<T, D>;
-    type CollectionTypeSync<T, D> = _type.CollectionTypeSync<T, D>;
-    type CollectionType<T, D> = _type.CollectionType<T, D>;
-    type DocumentDiff = _type.DocumentDiff;
-    type UpdateQuery = _type.UpdateQuery;
+    type TypeAsync<T, D, O> = _type.TypeAsync<T, D, O>;
+    type TypeSync<T, D, O> = _type.TypeSync<T, D, O>;
+    type Type<T, D, O> = _type.Type<T, D, O>;
+    type StaticTypeSync<T, D, O> = _type.StaticTypeSync<T, D, O>;
+    type StaticTypeAsync<T, D, O> = _type.StaticTypeAsync<T, D, O>;
+    type StaticType<T, D, O> = _type.StaticType<T, D, O>;
 }
 export declare namespace utils {
     type Dictionary<T> = _utils.Dictionary<T>;

@@ -46,5 +46,5 @@ export function stringify (path: DotPath): string {
   if (_.isString(path)) {
     return <string> path;
   }
-  return (<ParsedDotPath>path).join('.');
+  return (<ParsedDotPath> path).join(".");
 }

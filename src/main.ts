@@ -52,16 +52,17 @@ export namespace schema {
 }
 
 export namespace type {
-  export type TypeAsync<T, D> = _type.TypeAsync<T, D>;
-  export type TypeSync<T, D> = _type.TypeSync<T, D>;
-  export type Type<T, D> = _type.Type<T, D>;
-  export type StaticTypeSync<T, D> = _type.StaticTypeSync<T, D>;
-  export type StaticType<T, D> = _type.StaticType<T, D>;
-  export type CollectionTypeAsync<T, D> = _type.CollectionTypeAsync<T, D>;
-  export type CollectionTypeSync<T, D> = _type.CollectionTypeSync<T, D>;
-  export type CollectionType<T, D> = _type.CollectionType<T, D>;
-  export type DocumentDiff = _type.DocumentDiff;
-  export type UpdateQuery = _type.UpdateQuery;
+  export type TypeAsync<T, D, O> = _type.TypeAsync<T, D, O>;
+  export type TypeSync<T, D, O> = _type.TypeSync<T, D, O>;
+  export type Type<T, D, O> = _type.Type<T, D, O>;
+  export type StaticTypeSync<T, D, O> = _type.StaticTypeSync<T, D, O>;
+  export type StaticTypeAsync<T, D, O> = _type.StaticTypeAsync<T, D, O>;
+  export type StaticType<T, D, O> = _type.StaticType<T, D, O>;
+  // export type CollectionTypeAsync<T, D, O> = _type.CollectionTypeAsync<T, D>;
+  // export type CollectionTypeSync<T, D, O> = _type.CollectionTypeSync<T, D>;
+  // export type CollectionType<T, D> = _type.CollectionType<T, D>;
+  // export type DocumentDiff = _type.DocumentDiff;
+  // export type UpdateQuery = _type.UpdateQuery;
 }
 
 export namespace utils {

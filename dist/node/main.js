@@ -1,5 +1,5 @@
 "use strict";
-var _dotPath = require("./dot-path");
+const _dotPath = require("./dot-path");
 var dotPath;
 (function (dotPath) {
     dotPath.stringify = _dotPath.stringify;

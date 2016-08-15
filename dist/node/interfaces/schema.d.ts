@@ -1,4 +1,3 @@
-import { CollectionType, DocumentDiff } from "./type";
-import { Document } from "./utils";
-export declare type Schema = CollectionType<Document, DocumentDiff>;
+import { CollectionTypeAsync } from "./type";
+export declare type Schema = CollectionTypeAsync<any, any, any, any>;
 export declare type ViaModelSchema = Schema;
