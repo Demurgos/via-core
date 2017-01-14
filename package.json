@@ -1,6 +1,6 @@
 {
   "name": "kryo-core",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Serialization for documents.",
   "main": "dist/lib-es2015/lib/index.js",
   "types": "dist/lib-es2015/lib/index.d.ts",
