@@ -1,33 +1,33 @@
 {
-  "name": "via-core",
+  "name": "kryo-core",
   "version": "0.4.2",
-  "description": "Document oriented models",
+  "description": "Serialization for documents.",
   "main": "dist/node/main.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/demurgos/via-core.git"
+    "url": "git://github.com/demurgos/kryo-core.git"
   },
   "scripts": {
-    "test": "gulp test"
+    "prepare": "typings install && gulp all:tsconfig.json && gulp :tslint.json && gulp all:dist",
+    "test": "gulp :lint && gulp lib-test",
+    "prestart": "gulp main:build",
+    "start": "node build/main/main/main.js",
+    "prepublishOnly": "npm test",
+    ":lint": "gulp :lint"
   },
-  "keywords": [
-    "odm"
-  ],
-  "author": "",
+  "pre-commit": {
+    "run": [
+      "test"
+    ]
+  },
+  "keywords": [],
   "license": "MIT",
+  "dependencies": {},
   "devDependencies": {
-    "chai": "^3.4.1",
-    "gulp": "^3.9.0",
-    "typescript": "^1.8.10",
-    "via-build-tools": "^0.9.0"
-  },
-  "jspm": {
-    "configFile": "systemjs.config.js",
-    "dependencies": {},
-    "devDependencies": {}
-  },
-  "dependencies": {
-    "bluebird": "^3.2.1",
-    "lodash": "^4.11.1"
+    "chai": "^3.5.0",
+    "demurgos-web-build-tools": "0.13.0-beta.5",
+    "gulp": "github:gulpjs/gulp#4.0",
+    "pre-commit": "^1.2.2",
+    "typescript": "^2.1.4"
   }
 }
