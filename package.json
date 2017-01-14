@@ -13,7 +13,8 @@
     "prestart": "gulp main:build",
     "start": "node build/main/main/main.js",
     "prepublishOnly": "npm test",
-    ":lint": "gulp :lint"
+    ":lint": "gulp :lint",
+    "typedoc": "typedoc --out docs/api/ --module commonjs --target es2015 --exclude '**/*.spec.ts' src/lib/"
   },
   "pre-commit": {
     "run": [
