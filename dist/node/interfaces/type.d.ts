@@ -1,12 +1,14 @@
 import { Dictionary, Document } from "./utils";
 export interface TypeBase {
-    isSync(): boolean;
-    isCollection(): boolean;
-    type(): string;
-    types(): string[];
+    isSync: boolean;
+    isAsync: boolean;
+    isCollection: boolean;
+    type: string;
+    types: string[];
     toJSON(): any;
 }
 export interface TypeSync<T, D, O> extends TypeBase {
+    isSync: boolean;
     readTrustedSync(format: "json-doc" | "bson-doc", val: any, options?: O): T;
     readSync(format: "json-doc" | "bson-doc", val: any, options?: O): T;
     writeSync(format: "json-doc" | "bson-doc", val: T, options?: O): any;
@@ -19,6 +21,7 @@ export interface TypeSync<T, D, O> extends TypeBase {
     revertSync(newVal: T, diff: D | null, options?: O): T;
 }
 export interface TypeAsync<T, D, O> extends TypeBase {
+    isAsync: boolean;
     readTrustedAsync(format: "json-doc" | "bson-doc", val: any, options?: O): PromiseLike<T>;
     readAsync(format: "json-doc" | "bson-doc", val: any, options?: O): PromiseLike<T>;
     writeAsync(format: "json-doc" | "bson-doc", val: T, options?: O): PromiseLike<any>;
@@ -41,6 +44,7 @@ export interface StaticType<T, D, O> {
     new (options: O): Type<T, D, O>;
 }
 export interface CollectionTypeAsync<T, D, O, I> extends TypeAsync<T, D, O> {
+    isCollection: boolean;
     iterateAsync(value: T, options?: O): PromiseLike<IteratorResult<I>>;
 }
 export interface DocumentDiff {
