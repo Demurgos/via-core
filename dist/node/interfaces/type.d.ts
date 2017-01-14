@@ -1,60 +1,51 @@
-import * as Bluebird from "bluebird";
 import { Dictionary, Document } from "./utils";
-export interface TypeAsync<T, D> {
+export interface TypeBase {
     isSync: boolean;
-    name: string;
-    read(format: string, val: any, options?: any): Bluebird.Thenable<T>;
-    readTrusted(format: string, val: any, options?: any): Bluebird.Thenable<T>;
-    write(format: string, val: T, options?: any): Bluebird.Thenable<any>;
-    test(val: any, options?: any): Bluebird.Thenable<Error>;
-    equals(val1: T, val2: T, options?: any): Bluebird.Thenable<boolean>;
-    clone(val: T, options?: any): Bluebird.Thenable<T>;
-    diff(oldVal: T, newVal: T, options?: any): Bluebird.Thenable<D>;
-    patch(oldVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
-    revert(newVal: T, diff: D, options?: any): Bluebird.Thenable<T>;
+    isAsync: boolean;
+    isCollection: boolean;
+    type: string;
+    types: string[];
+    toJSON(): any;
 }
-export interface TypeSync<T, D> {
+export interface TypeSync<T, D, O> extends TypeBase {
     isSync: boolean;
-    name: string;
-    readSync(format: string, val: any, options?: any): T;
-    readTrustedSync(format: string, val: any, options?: any): T;
-    writeSync(format: string, val: T, options?: any): any;
-    testSync(val: any, options?: any): Error;
-    equalsSync(val1: T, val2: T, options?: any): boolean;
-    cloneSync(val: T, options?: any): T;
-    diffSync(oldVal: T, newVal: T, options?: any): D;
-    patchSync(oldVal: T, diff: D, options?: any): T;
-    revertSync(newVal: T, diff: D, options?: any): T;
+    readTrustedSync(format: "json-doc" | "bson-doc", val: any, options?: O): T;
+    readSync(format: "json-doc" | "bson-doc", val: any, options?: O): T;
+    writeSync(format: "json-doc" | "bson-doc", val: T, options?: O): any;
+    testErrorSync(val: any, options?: O): Error;
+    testSync(val: any, options?: O): boolean;
+    equalsSync(val1: T, val2: T, options?: O): boolean;
+    cloneSync(val: T, options?: O): T;
+    diffSync(oldVal: T, newVal: T, options?: O): D | null;
+    patchSync(oldVal: T, diff: D | null, options?: O): T;
+    revertSync(newVal: T, diff: D | null, options?: O): T;
 }
-export interface Type<T, D> extends TypeAsync<T, D> {
-    isSync: boolean;
-    readSync?(format: string, val: any, options?: any): T;
-    readTrustedSync?(format: string, val: any, options?: any): T;
-    writeSync?(format: string, val: T, options?: any): any;
-    testSync?(val: any, options?: any): Error;
-    equalsSync?(val1: T, val2: T, options?: any): boolean;
-    cloneSync?(val: T, options?: any): T;
-    diffSync?(oldVal: T, newVal: T, options?: any): D;
-    patchSync?(oldVal: T, diff: D, options?: any): T;
-    revertSync?(newVal: T, diff: D, options?: any): T;
+export interface TypeAsync<T, D, O> extends TypeBase {
+    isAsync: boolean;
+    readTrustedAsync(format: "json-doc" | "bson-doc", val: any, options?: O): PromiseLike<T>;
+    readAsync(format: "json-doc" | "bson-doc", val: any, options?: O): PromiseLike<T>;
+    writeAsync(format: "json-doc" | "bson-doc", val: T, options?: O): PromiseLike<any>;
+    testErrorAsync(val: any, options?: O): PromiseLike<Error>;
+    testAsync(val: any, options?: O): PromiseLike<boolean>;
+    equalsAsync(val1: T, val2: T, options?: O): PromiseLike<boolean>;
+    cloneAsync(val: T, options?: O): PromiseLike<T>;
+    diffAsync(oldVal: T, newVal: T, options?: O): PromiseLike<D | null>;
+    patchAsync(oldVal: T, diff: D | null, options?: O): PromiseLike<T>;
+    revertAsync(newVal: T, diff: D | null, options?: O): PromiseLike<T>;
 }
-export interface StaticTypeSync<T, D> {
-    new (...args: any[]): TypeSync<T, D>;
-    prototype?: TypeSync<T, D>;
+export declare type Type<T, D, O> = TypeAsync<T, D, O> | TypeSync<T, D, O>;
+export interface StaticTypeSync<T, D, O> {
+    new (options: O): TypeSync<T, D, O>;
 }
-export interface StaticType<T, D> {
-    new (...args: any[]): Type<T, D>;
-    prototype?: Type<T, D>;
+export interface StaticTypeAsync<T, D, O> {
+    new (options: O): TypeAsync<T, D, O>;
 }
-export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
-    reflect(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Bluebird.Thenable<any>;
-    diffToUpdate(newVal: T, diff: D, format: string): Bluebird.Thenable<UpdateQuery>;
+export interface StaticType<T, D, O> {
+    new (options: O): Type<T, D, O>;
 }
-export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
-    reflectSync(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
-}
-export interface CollectionType<T, D> extends CollectionTypeAsync<T, D>, Type<T, D> {
-    reflectSync?(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
+export interface CollectionTypeAsync<T, D, O, I> extends TypeAsync<T, D, O> {
+    isCollection: boolean;
+    iterateAsync(value: T, options?: O): PromiseLike<IteratorResult<I>>;
 }
 export interface DocumentDiff {
     set: Document;

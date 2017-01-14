@@ -1,77 +1,70 @@
 import {Dictionary, Document} from "./utils";
 
-export type Format = "bson" | "json";
-
-export interface TypeAsync<T, D> {
+export interface TypeBase {
   isSync: boolean;
-  name: string;
-
-  read(format: Format, val: any, options?: any): Promise<T>;
-  readTrusted(format: Format, val: any, options?: any): Promise<T>;
-  write(format: Format, val: T, options?: any): Promise<any>;
-  test(val: any, options?: any): Promise<Error>;
-  equals(val1: T, val2: T, options?: any): Promise<boolean>;
-  clone(val: T, options?: any): Promise<T>;
-  diff(oldVal: T, newVal: T, options?: any): Promise<D>;
-  patch(oldVal: T, diff: D, options?: any): Promise<T>;
-  revert(newVal: T, diff: D, options?: any): Promise<T>;
+  isAsync: boolean;
+  isCollection: boolean;
+  type: string;
+  types: string[];
+  toJSON(): any;
 }
 
-export interface TypeSync<T, D> {
-  isSync: boolean;
-  name: string;
+export interface TypeSync<T, D, O> extends TypeBase {
+  isSync: true;
 
-  readSync(format: string, val: any, options?: any): T;
-  readTrustedSync(format: string, val: any, options?: any): T;
-  writeSync(format: string, val: T, options?: any): any;
-  testSync(val: any, options?: any): Error;
-  equalsSync(val1: T, val2: T, options?: any): boolean;
-  cloneSync(val: T, options?: any): T;
-  diffSync(oldVal: T, newVal: T, options?: any): D;
-  patchSync(oldVal: T, diff: D, options?: any): T;
-  revertSync(newVal: T, diff: D, options?: any): T;
+  readTrustedSync (format: "json-doc" | "bson-doc", val: any, options?: O): T;
+  readSync (format: "json-doc" | "bson-doc", val: any, options?: O): T;
+  writeSync (format: "json-doc" | "bson-doc", val: T, options?: O): any;
+  testErrorSync (val: any, options?: O): Error;
+  testSync (val: any, options?: O): boolean;
+  equalsSync (val1: T, val2: T, options?: O): boolean;
+  cloneSync (val: T, options?: O): T;
+  diffSync (oldVal: T, newVal: T, options?: O): D | null;
+  patchSync (oldVal: T, diff: D | null, options?: O): T;
+  revertSync (newVal: T, diff: D | null, options?: O): T;
 }
 
-export interface Type<T, D> extends TypeAsync<T, D> {
-  isSync: boolean;
+export interface TypeAsync<T, D, O> extends TypeBase {
+  isAsync: true;
 
-  readSync?(format: string, val: any, options?: any): T;
-  readTrustedSync?(format: string, val: any, options?: any): T;
-  writeSync?(format: string, val: T, options?: any): any;
-  testSync?(val: any, options?: any): Error;
-  equalsSync?(val1: T, val2: T, options?: any): boolean;
-  cloneSync?(val: T, options?: any): T;
-  diffSync?(oldVal: T, newVal: T, options?: any): D;
-  patchSync?(oldVal: T, diff: D, options?: any): T;
-  revertSync?(newVal: T, diff: D, options?: any): T;
+  readTrustedAsync (format: "json-doc" | "bson-doc", val: any, options?: O): Promise<T>;
+  readAsync (format: "json-doc" | "bson-doc", val: any, options?: O): Promise<T>;
+  writeAsync (format: "json-doc" | "bson-doc", val: T, options?: O): Promise<any>;
+  testErrorAsync (val: any, options?: O): Promise<Error>;
+  testAsync (val: any, options?: O): Promise<boolean>;
+  equalsAsync (val1: T, val2: T, options?: O): Promise<boolean>;
+  cloneAsync (val: T, options?: O): Promise<T>;
+  diffAsync (oldVal: T, newVal: T, options?: O): Promise<D | null>;
+  patchAsync (oldVal: T, diff: D | null, options?: O): Promise<T>;
+  revertAsync (newVal: T, diff: D | null, options?: O): Promise<T>;
 }
 
-export interface StaticTypeAsync<T, D> {
-  new(...args: any[]): TypeAsync<T, D>;
-  prototype?: TypeAsync<T, D>;
+export type Type<T, D, O> = TypeAsync<T, D, O> | TypeSync<T, D, O>;
+
+export interface StaticTypeSync<T, D, O> {
+  new(options: O): TypeSync<T, D, O>;
 }
 
-export interface StaticTypeSync<T, D> {
-  new(...args: any[]): TypeSync<T, D>;
-  prototype?: TypeSync<T, D>;
+export interface StaticTypeAsync<T, D, O> {
+  new(options: O): TypeAsync<T, D, O>;
 }
 
-export interface StaticType<T, D> {
-  new(...args: any[]): Type<T, D>;
-  prototype?: Type<T, D>;
+export interface StaticType<T, D, O> {
+  new(options: O): Type<T, D, O>;
 }
 
-export interface CollectionTypeAsync<T, D> extends TypeAsync<T, D> {
-  reflect(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): Promise<any>;
+// I stands for Item
+export interface CollectionTypeAsync <T, D, O, I> extends TypeAsync<T, D, O> {
+  isCollection: true;
+  iterateAsync (value: T, options?: O): Promise<IteratorResult<I>>;
 }
 
-export interface CollectionTypeSync<T, D> extends TypeSync<T, D> {
-  reflectSync(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
+export interface CollectionTypeSync <T, D, O, I> extends TypeSync<T, D, O> {
+  isCollection: true;
+  iterateSync (value: T, options?: O): IteratorResult<I>;
 }
 
-export interface CollectionType<T, D> extends CollectionTypeAsync<T, D>, Type<T, D> {
-  reflectSync?(visitor: (value?: any, key?: any, parent?: CollectionType<any, any>) => any, options?: any): any;
-}
+export type CollectionType<T, D, O, I> = CollectionTypeAsync <T, D, O, I> | CollectionTypeSync <T, D, O, I>;
 
 export interface DocumentDiff {
   set: Document; // val
