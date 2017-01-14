@@ -2,7 +2,9 @@
   "name": "kryo-core",
   "version": "0.4.2",
   "description": "Serialization for documents.",
-  "main": "dist/node/main.js",
+  "main": "dist/lib-es2015/lib/index.js",
+  "types": "dist/lib-es2015/lib/index.d.ts",
+  "browser": "dist/lib-es5/lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/demurgos/kryo-core.git"
